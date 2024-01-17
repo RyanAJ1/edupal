@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat room</title>
+<style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:linear-gradient(118deg, #F0F8FF 1.09%, #CC55FC 57.44%, #020024 98.91%);
+            color: black;
+        }
+
+        #chat-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.48);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        #input-message {
+            width: 80%;
+            padding: 18px;
+            margin: 18px 0;
+            box-sizing: border-box;
+            border: none;
+            font-family: 'Quando', serif;
+            border-radius: 15px;
+        }
+
+        #send-button, #clear-button {
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-family: 'Lily Script One', system-ui;
+        }
+
+        #send-button {
+            background-color: #CC55FC;
+            color: white;
+            font-family: 'Lily Script One', system-ui;
+        }
+
+        #clear-button {
+            background-color: #FF0000;
+            color: white;
+            font-family: 'Lily Script One', system-ui;
+        }
+
+        #chat-history {
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        function studentCompanion(userInput) {
+            userInput = userInput.toLowerCase();
+
+            if (userInput.includes("hello") || userInput.includes("hi")) {
+                return "Hello! I'm here to make your study sessions more enjoyable and productive. Is there a specific topic or concern you'd like to discuss?";
+            } else if (userInput.includes("study") || userInput.includes("subject")) {
+                return "Absolutely, let's delve into your studies! What subject or course are you currently focusing on? If you need help with a specific topic, feel free to share the details. We can explore resources together!";
+            } else if (userInput.includes("help")) {
+                return "Of course! Whether you're seeking study tips, assistance with a particular subject, or just a friendly chat, I'm here to help. What do you need support with? Don't hesitate to ask for guidance or advice on anything you're working on.";
+            } else if (userInput.includes("stress") || userInput.includes("overwhelmed")) {
+                return "Feeling stressed is entirely normal, especially during intense study periods. Take a moment to pause, breathe deeply, and remember that you're capable of handling the challenges ahead. Consider breaking your tasks into smaller, more manageable steps. Remember, progress, not perfection!";
+            } else if (userInput.includes("motivate") || userInput.includes("inspire")) {
+                return "You're on a remarkable journey of learning and growth! It's important to acknowledge your efforts, no matter how small. Keep in mind that progress is a series of small victories. You're making a difference with each step forward! If you ever need a motivational boost, I'm here to cheer you on!";
+            } else if (userInput.includes("fun") || userInput.includes("joke")) {
+                return "Sure, let's lighten the mood! Here's a joke for you: Why did the student bring a ladder to class? Because they wanted to go to high school! 😄 Feel free to share your favorite joke or ask for more! Laughter is a great stress reliever.";
+            } else if (userInput.includes("recommendation") || userInput.includes("suggestion")) {
+                return "Taking breaks is crucial for maintaining focus and energy. How about trying a short mindfulness exercise, like meditation or deep breathing? Alternatively, a change of scenery or a quick stretch can work wonders. What sounds appealing to you? Remember, self-care is an essential part of the learning journey!";
+            } else if (userInput.includes("goal") || userInput.includes("achievement")) {
+                return "Setting goals provides a clear path for success. Think about a short-term goal you'd like to achieve—something challenging but attainable. Break it down into actionable steps, and celebrate your progress along the way. I'm here to support you in reaching your goals! Visualization can be a powerful tool in achieving success.";
+              } else if (userInput.includes("science") || userInput.includes("physics")) {
+    return "Exploring the wonders of science is fascinating! Is there a specific area of physics or science in general that you'd like to dive into? Let's embark on a scientific journey together!";
+} else if (userInput.includes("nature") || userInput.includes("outdoors")) {
+    return "Connecting with nature is a great way to recharge. Have you explored any interesting outdoor locations lately? Share your favorite nature spots!";
+} else if (userInput.includes("astronomy") || userInput.includes("space")) {
+    return "The cosmos holds endless mysteries. Interested in astronomy or space exploration? Let's talk about the vastness of the universe and celestial wonders!";
+} else if (userInput.includes("biology") || userInput.includes("organisms")) {
+    return "Life sciences reveal the intricate web of living organisms. What aspect of biology intrigues you the most? Let's delve into the world of living things!";
+} else if (userInput.includes("chemistry") || userInput.includes("chemical reactions")) {
+    return "Chemistry is all about the magic of molecules and reactions. Any specific chemical phenomena or experiments you'd like to explore together?";
+  } else if (userInput.includes("religion") || userInput.includes("spirituality")) {
+    return "Exploring matters of the spirit is a profound journey. Do you follow a specific religion or spiritual practice? Let's discuss the beauty of diverse beliefs!";
+} else if (userInput.includes("countries") || userInput.includes("geography")) {
+    return "The diversity of countries and cultures is fascinating. Have a favorite country or interested in exploring new cultures? Let's embark on a virtual global tour!";
+} else if (userInput.includes("space") || userInput.includes("cosmic mysteries")) {
+    return "The cosmos holds endless mysteries. Any specific cosmic phenomena or space missions you're curious about? Let's journey through the vastness of the universe!";
+} else if (userInput.includes("history") || userInput.includes("historical events")) {
+    return "History unveils the tapestry of human experiences. Interested in a specific historical era or event? Let's delve into the annals of the past!";
+} else if (userInput.includes("languages") || userInput.includes("linguistics")) {
+    return "Languages shape our understanding of the world. How many languages do you speak, or are you interested in linguistic diversity? Let's celebrate the beauty of words!";
+} else if (userInput.includes("philosophy") || userInput.includes("ethical dilemmas")) {
+    return "Philosophy delves into profound questions. Any ethical dilemmas or philosophical concepts you'd like to ponder together? Let's explore the realms of thought!";
+} else if (userInput.includes("travel") || userInput.includes("adventures")) {
+    return "Traveling broadens horizons and creates lasting memories. Any dream destinations or travel adventures you'd like to share or plan? Let's embark on a journey of wanderlust!";
+} else if (userInput.includes("art") || userInput.includes("creative expression")) {
+    return "Artistic expression adds vibrancy to life. Do you have a favorite art form or artist? Let's discuss the beauty of creative endeavors!";
+} else if (userInput.includes("mythology") || userInput.includes("legendary tales")) {
+    return "Mythology is a tapestry of legendary tales. Interested in the myths of a specific culture or have a favorite mythological character? Let's unravel the stories of gods and heroes!";
+} else if (userInput.includes("medicine") || userInput.includes("healthcare")) {
+    return "Medicine plays a crucial role in our well-being. Any medical topics, health tips, or questions about healthcare you'd like to explore? Let's prioritize your health!";
+} else if (userInput.includes("aviation") || userInput.includes("flight")) {
+    return "The world of aviation is filled with innovation and adventure. Interested in airplanes, flying, or the history of aviation? Let's take flight into the skies of knowledge!";
+} else if (userInput.includes("music") || userInput.includes("musical genres")) {
+    return "Music transcends boundaries and speaks to the soul. What musical genres or artists do you enjoy? Let's create a harmonious conversation about your favorite tunes!";
+} else if (userInput.includes("architecture") || userInput.includes("building designs")) {
+    return "Architecture shapes the world we live in. Any favorite architectural styles or iconic buildings that capture your admiration? Let's discuss the artistry of structures!";
+} else if (userInput.includes("geopolitics") || userInput.includes("international relations")) {
+    return "Geopolitics influences the world stage. Interested in international relations or have thoughts on global issues? Let's navigate the complex landscape of geopolitics!";
+} else if (userInput.includes("sports") || userInput.includes("athletic pursuits")) {
+    return "Sports bring people together and showcase human potential. Any favorite sports or athletes you admire? Let's kick off a conversation about athletic prowess!";
+} else if (userInput.includes("psychology") || userInput.includes("emotional well-being")) {
+    return "Emotional well-being is a vital aspect of life. How do you prioritize your mental health, and are there specific topics in psychology you'd like to explore together?";
+} else if (userInput.includes("literature") || userInput.includes("book recommendations")) {
+    return "Literature opens doors to new worlds. Any favorite books or genres you'd recommend, or are you looking for reading suggestions? Let's embark on a literary journey!";
+} else if (userInput.includes("technology") || userInput.includes("digital trends")) {
+    return "Digital trends shape our connected world. Interested in the latest tech innovations or have thoughts on the digital landscape? Let's navigate the ever-evolving world of technology!";
+} else if (userInput.includes("ethics") || userInput.includes("moral dilemmas")) {
+    return "Ethical considerations guide our choices. Any moral dilemmas or ethical questions you'd like to discuss? Let's explore the nuances of ethical decision-making!";
+} else if (userInput.includes("education") || userInput.includes("learning methods")) {
+    return "Education is a lifelong journey. Interested in effective learning methods or have thoughts on the future of education? Let's foster a conversation about the pursuit of knowledge!";
+} else if (userInput.includes("dance") || userInput.includes("movement arts")) {
+    return "Dance is a beautiful form of expression. Any favorite dance styles or dance performances you find captivating? Let's dance through a conversation about movement arts!";
+} else if (userInput.includes("theater") || userInput.includes("performing arts")) {
+    return "Theater brings stories to life on the stage. Any favorite plays, performances, or thoughts on the world of theater? Let's take a front-row seat to a discussion about the performing arts!";
+} else if (userInput.includes("economics") || userInput.includes("financial insights")) {
+    return "Economics influences our daily lives. Interested in financial insights, economic trends, or have thoughts on economic systems? Let's delve into the world of economics!";
+} else if (userInput.includes("equality") || userInput.includes("social justice")) {
+    return "Promoting equality and social justice is vital. Any thoughts on how individuals and societies can contribute to a more just and equal world? Let's discuss the path to equity!";
+} else if (userInput.includes("nutrition") || userInput.includes("healthy eating")) {
+    return "Nutrition is a cornerstone of well-being. Any specific nutrition goals or questions about healthy eating you'd like to explore? Let's savor a conversation about nourishing our bodies!";
+} else if (userInput.includes("law") || userInput.includes("legal systems")) {
+    return "Legal systems shape our societies. Interested in law, legal debates, or have thoughts on justice? Let's navigate the intricacies of legal systems together!";
+} else if (userInput.includes("engineering") || userInput.includes("innovation")) {
+    return "Engineering drives innovation across various fields. Interested in a specific engineering discipline or curious about groundbreaking inventions? Let's engineer a conversation!";
+} else if (userInput.includes("sociology") || userInput.includes("social dynamics")) {
+    return "Sociology explores the dynamics of human society. Any specific social issues or phenomena you'd like to discuss? Let's delve into the complexities of society!";
+} else if (userInput.includes("spirituality") || userInput.includes("mindfulness")) {
+    return "Nurturing the spirit through mindfulness is transformative. Do you practice mindfulness, or are you interested in incorporating it into your daily life? Let's explore the journey within!";
+} else if (userInput.includes("politics") || userInput.includes("government systems")) {
+    return "Politics shapes the governance of nations. Interested in political systems, governance structures, or have thoughts on current political issues? Let's engage in a conversation about the political landscape!";
+} else if (userInput.includes("fashion") || userInput.includes("style trends")) {
+    return "Fashion is a form of self-expression. Any favorite style trends or fashion designers you admire? Let's strike a pose and discuss the artistry of fashion!";
+} else if (userInput.includes("climate change") || userInput.includes("environmental impact")) {
+    return "Climate change is a global challenge. How do you think individuals and societies can contribute to mitigating the environmental impact? Let's discuss sustainable solutions!";
+} else if (userInput.includes("philanthropy") || userInput.includes("social impact")) {
+    return "Philanthropy and social impact create positive change. Interested in philanthropic efforts or have ideas for making a difference in your community? Let's explore avenues for social good!";
+} else if (userInput.includes("pandemics") || userInput.includes("public health")) {
+    return "Public health is crucial, especially during pandemics. Any reflections on global health challenges or thoughts on pandemic preparedness? Let's discuss the intersection of health and society!";
+} else if (userInput.includes("architecture") || userInput.includes("building designs")) {
+    return "Architecture shapes the world we live in. Any favorite architectural styles or iconic buildings that capture your admiration? Let's discuss the artistry of structures!";
+} else if (userInput.includes("psychology") || userInput.includes("emotional well-being")) {
+    return "Emotional well-being is a vital aspect of life. How do you prioritize your mental health, and are there specific topics in psychology you'd like to explore together?";
+} else if (userInput.includes("literature") || userInput.includes("book recommendations")) {
+    return "Literature opens doors to new worlds. Any favorite books or genres you'd recommend, or are you looking for reading suggestions? Let's embark on a literary journey!";
+} else if (userInput.includes("technology") || userInput.includes("digital trends")) {
+    return "Digital trends shape our connected world. Interested in the latest tech innovations or have thoughts on the digital landscape? Let's navigate the ever-evolving world of technology!";
+} else if (userInput.includes("ethics") || userInput.includes("moral dilemmas")) {
+    return "Ethical considerations guide our choices. Any moral dilemmas or ethical questions you'd like to discuss? Let's explore the nuances of ethical decision-making!";
+} else if (userInput.includes("education") || userInput.includes("learning methods")) {
+    return "Education is a lifelong journey. Interested in effective learning methods or have thoughts on the future of education? Let's foster a conversation about the pursuit of knowledge!";
+} else if (userInput.includes("dance") || userInput.includes("movement arts")) {
+    return "Dance is a beautiful form of expression. Any favorite dance styles or dance performances you find captivating? Let's dance through a conversation about movement arts!";
+} else if (userInput.includes("theater") || userInput.includes("performing arts")) {
+    return "Theater brings stories to life on the stage. Any favorite plays, performances, or thoughts on the world of theater? Let's take a front-row seat to a discussion about the performing arts!";
+} else if (userInput.includes("economics") || userInput.includes("financial insights")) {
+    return "Economics influences our daily lives. Interested in financial insights, economic trends, or have thoughts on economic systems? Let's delve into the world of economics!";
+} else if (userInput.includes("equality") || userInput.includes("social justice")) {
+    return "Promoting equality and social justice is vital. Any thoughts on how individuals and societies can contribute to a more just and equal world? Let's discuss the path to equity!";
+} else if (userInput.includes("nutrition") || userInput.includes("healthy eating")) {
+    return "Nutrition is a cornerstone of well-being. Any specific nutrition goals or questions about healthy eating you'd like to explore? Let's savor a conversation about nourishing our bodies!";
+} else if (userInput.includes("law") || userInput.includes("legal systems")) {
+    return "Legal systems shape our societies. Interested in law, legal debates, or have thoughts on justice? Let's navigate the intricacies of legal systems together!";
+} else if (userInput.includes("engineering") || userInput.includes("innovation")) {
+    return "Engineering drives innovation across various fields. Interested in a specific engineering discipline or curious about groundbreaking inventions? Let's engineer a conversation!";
+} else if (userInput.includes("sociology") || userInput.includes("social dynamics")) {
+    return "Sociology explores the dynamics of human society. Any specific social issues or phenomena you'd like to discuss? Let's delve into the complexities of society!";
+} else if (userInput.includes("environment") || userInput.includes("sustainability")) {
+    return "Caring for the environment is crucial. How do you contribute to sustainability? Let's discuss ways to make a positive impact on our planet!";
+} else if (userInput.includes("technology") || userInput.includes("innovation")) {
+    return "Embracing technology and innovation is exciting. Are there any tech trends or inventions you find particularly fascinating?";
+} else if (userInput.includes("math") || userInput.includes("problems")) {
+    return "Mathematics is the language of the universe. Struggling with a math problem or interested in a specific mathematical concept? Let's tackle it together!";
+} else if (userInput.includes("geology") || userInput.includes("rocks")) {
+    return "The study of Earth's structure is captivating. Any interest in geology or rocks? Share your favorite geological formations or ask questions!";
+} else if (userInput.includes("ecology") || userInput.includes("ecosystems")) {
+    return "Exploring ecosystems and the delicate balance of nature is crucial. What ecosystems do you find most intriguing or want to learn more about?";
+} else if (userInput.includes("psychology") || userInput.includes("behavior")) {
+    return "Understanding the human mind is a fascinating journey. Any specific psychological topics or behaviors you'd like to explore?";
+} else if (userInput.includes("robotics") || userInput.includes("automation")) {
+    return "The world of robotics and automation is evolving rapidly. Any specific aspect of robotics or automation that captures your interest?";
+} else if (userInput.includes("energy") || userInput.includes("renewable")) {
+    return "Exploring energy sources is essential for a sustainable future. What are your thoughts on renewable energy, and how do you see it shaping our world?";
+} else if (userInput.includes("oceanography") || userInput.includes("marine life")) {
+    return "The oceans hold mysteries and diverse life forms. Interested in oceanography or marine biology? Let's explore the wonders beneath the waves!";
+} else if (userInput.includes("meteorology") || userInput.includes("weather patterns")) {
+    return "Meteorology unveils the secrets of weather. Any specific weather phenomena or patterns you're curious about? Let's unravel the mysteries of the atmosphere!";
+} else if (userInput.includes("neuroscience") || userInput.includes("brain functions")) {
+    return "The brain is a marvel of complexity. Intrigued by neuroscience or the functions of the brain? Let's delve into the intricate workings of the mind!";
+} else if (userInput.includes("particle physics") || userInput.includes("subatomic particles")) {
+    return "Particle physics explores the fundamental building blocks of the universe. Any questions about subatomic particles or particle accelerators? Let's navigate the quantum realm!";
+} else if (userInput.includes("paleontology") || userInput.includes("fossils")) {
+    return "The study of ancient life through fossils is captivating. Interested in paleontology or have a favorite prehistoric creature? Share your paleontological wonders!";
+} else if (userInput.includes("astronomy") || userInput.includes("space exploration")) {
+    return "Venturing beyond our planet is an exciting endeavor. Any thoughts on space exploration or aspirations for humanity's future among the stars?";
+} else if (userInput.includes("biochemistry") || userInput.includes("molecular biology")) {
+    return "Biochemistry delves into the molecular basis of life. Interested in molecular biology or biochemistry? Let's explore the intricate world of biomolecules!";
+} else if (userInput.includes("quantum mechanics") || userInput.includes("quantum theory")) {
+    return "Quantum mechanics uncovers the mysterious behavior of particles. Any questions or curiosities about quantum theory? Let's navigate the quantum landscape together!";
+} else if (userInput.includes("cryptography") || userInput.includes("encryption")) {
+    return "Cryptography safeguards our digital world. Any interest in encryption algorithms or the world of cybersecurity? Let's decode the mysteries of cryptography!";
+} else if (userInput.includes("agriculture") || userInput.includes("sustainable farming")) {
+    return "Sustainable agriculture is crucial for food security. How do you envision the future of farming, and what sustainable practices do you find inspiring?";
+} else if (userInput.includes("entomology") || userInput.includes("insects")) {
+    return "Insects play a vital role in ecosystems. Interested in entomology or have a favorite insect? Let's explore the fascinating world of bugs!";
+} else if (userInput.includes("nanotechnology") || userInput.includes("nanostructures")) {
+    return "Nanotechnology explores the world at the nanoscale. Any questions about nanostructures or applications of nanotechnology? Let's dive into the tiny wonders!";
+} else if (userInput.includes("climate change") || userInput.includes("environmental impact")) {
+    return "Climate change is a global challenge. How do you think individuals and societies can contribute to mitigating the environmental impact? Let's discuss sustainable solutions!";
+} else if (userInput.includes("psychology") || userInput.includes("cognitive processes")) {
+    return "Understanding cognitive processes is essential for psychology. Any particular cognitive phenomena or processes you'd like to explore together?";
+} else if (userInput.includes("engineering") || userInput.includes("innovation")) {
+    return "Engineering drives innovation across various fields. Interested in a specific engineering discipline or curious about groundbreaking inventions? Let's engineer a conversation!";
+} else if (userInput.includes("sociology") || userInput.includes("social dynamics")) {
+    return "Sociology explores the dynamics of human society. Any specific social issues or phenomena you'd like to discuss? Let's delve into the complexities of society!";
+} else if (userInput.includes("what's your name!") || userInput.includes("do you have a name?")) {
+                return "my name is Debby i am an owl! who who!";
+} else if (userInput.includes("weather") || userInput.includes("outside")) {
+                return "Taking a break outdoors can provide a refreshing change of scenery. If the weather is favorable, consider stepping outside for a few minutes. Feel the sunlight, take in the fresh air, and let your mind recharge. What's the weather like in your area? Nature has a calming effect on the mind!";
+} else if (userInput.includes("coding") || userInput.includes("programming")) {
+                return "Coding is a fascinating skill to develop! What programming language or project are you currently working on? Whether you're a beginner or an experienced coder, discussing your coding endeavors can be both inspiring and informative. Coding challenges are opportunities for growth!";
+            } else if (userInput.includes("future") || userInput.includes("career")) {
+                return "Thinking about your future is an exciting journey. What are your career aspirations, and how do you envision achieving them? Feel free to share your dreams, and we can explore the steps to help turn them into reality. Remember, your education is a stepping stone to a bright future!";
+              } else if (userInput.includes("who created you") || userInput.includes("who invented you") || userInput.includes("who made you") || userInput.includes("who devloped you")) {
+                return "his name is RayanAJ he is a young morrocan devloper ! who who!";
+              } else if (userInput.includes("salam") || userInput.includes("salam alaykum") || userInput.includes("سلام") || userInput.includes("سلام عليكم")) {
+                return "و عليكم السلام اخا ريان";
+              } else if (userInput.includes("rayan is the best") || userInput.includes("i like rayan")) {
+                return "وافخباري";
+              } else if (userInput.includes("i feel lonely") || userInput.includes("alone ")  || userInput.includes("loneliness")  || userInput.includes("super lonely ")) {
+                return "I'm sorry to hear that you're feeling lonely. It's okay to feel this way, and it's important to reach out for support. If you're comfortable, consider talking to friends, family, or someone you trust about how you're feeling. Sometimes, sharing your thoughts and feelings can make a big difference. If you prefer, there are also professional helplines and mental health services available. Remember, you're not alone, and seeking support is a courageous step. ";
+              } else if (userInput.includes("rain") || userInput.includes("raining")) {
+                return "Rain refers to the meteorological phenomenon of water droplets falling from the sky. It is a crucial component of the Earth's water cycle and plays a vital role in sustaining life.";
+            } else {
+                return "I'm sorry if I missed your point. Could you please provide more details or ask a specific question? I'm here to assist you with anything you need. Feel free to share your thoughts, concerns, or anything you'd like to discuss!";
+            }
+        }
+
+        function handleEnter(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById("input-message");
+            const userMessage = inputField.value;
+            const chatHistory = document.getElementById("chat-history");
+
+            const userMessageElement = document.createElement("p");
+            userMessageElement.textContent = `You: ${userMessage}`;
+            chatHistory.appendChild(userMessageElement);
+
+            const companionResponse = studentCompanion(userMessage);
+            const companionResponseElement = document.createElement("p");
+            companionResponseElement.textContent = `Companion: ${companionResponse}`;
+            chatHistory.appendChild(companionResponseElement);
+
+            inputField.value = "";
+        }
+
+        function clearChat() {
+            const chatHistory = document.getElementById("chat-history");
+            chatHistory.innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <div id="chat-container">
+        <p>Welcome to your Study Companion! Feel free to chat and ask for assistance.</p>
+        <div id="chat-history"></div>
+        <input
+            id="input-message"
+            type="text"
+            placeholder="Type your message here..."
+            onkeypress="handleEnter(event)"
+        />
+        <button id="send-button" onclick="sendMessage()">Send</button>
+        <button id="clear-button" onclick="clearChat()">Clear Chat</button>
+    </div>
+</body>
+</html>
